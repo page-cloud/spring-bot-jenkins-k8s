@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: pagecloudacademy/ultimate-cicd:replaceImageTag
+        image: pagecloudacademy/ultimate-cicd:2
         ports:
         - containerPort: 8080
