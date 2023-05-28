@@ -48,12 +48,12 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "spring-bot-jenkins-k8s"
-            GIT_USER_NAME = "paged.cloud@gmail.com"
+            GIT_USER_NAME = "paged.us@gmail.com"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "paged.cloud@gmail.com"
+                    git config user.email "paged.us@gmail.com"
                     git config user.name "page"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" ./deployment.yml
