@@ -9,6 +9,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
+        sh 'git checkout -b testing'
         git branch: 'testing', url: 'https://github.com/page-cloud/spring-bot-jenkins-k8s.git'
       }
     }
