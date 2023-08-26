@@ -59,7 +59,7 @@ pipeline {
                         git add deployment.yml
                         git commit -m "update deployment file ${BUILD_NUMBER}"
                         #git merge --continue
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:deployment
+                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:mian
                         #git push https://github.com/arifislam007/spring-bot-jenkins-k8s.git HEAD:testing
                         #git push origin staging:staging                # Push your changes to remote 'staging'
                     '''
