@@ -39,8 +39,8 @@ pipeline {
 						git config --global user.email "islam.arif87@gmail.com"
 						git config --global user.name "arifislam007"
 						git add deployment.yml
-						git commit -m "update deployment file version number ${BUILD_NUMBER}"
-						git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+						git commit -m "deployment file updated"
+						sh "git push -u origin master"
 					'''
 				}
 			}
