@@ -40,8 +40,7 @@ pipeline {
 					git config --global user.name "arifislam007"
 					git add deployment.yml
 					git commit -m "deployment file updated"
-					git add origin https://github.com/arifislam007/spring-bot-jenkins-k8s.git
-					git push https://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@github.com/arifislam007/spring-bot-jenkins-k8s.git origin
+					git push https://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@github.com/arifislam007/spring-bot-jenkins-k8s.git HEAD:origin/main
 				'''
 				
 			}
