@@ -43,30 +43,23 @@ pipeline {
             }
         }
 		stage("Push to Git Repository") {
-            environment {
-                GITHUB_TOKEN = "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"
-                GIT_USER_NAME = "arifislam007"
-                GIT_REPO_NAME = "spring-bot-jenkins-k8s"
-            }
-            steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'githubaccess', gitToolName: 'Default')]) {
-                    sh '''
-                        #git fetch origin
-                        #git checkout -B staging origin/staging  # Switch to the remote 'staging' branch
-                        #git pull origin/staging                # Integrate remote changes
-                        git config --global user.email "islam.arif87@gmail.com"
-                        git config --global user.name "arifislam007"
-                        git add deployment.yml
-                        git commit -m "update deployment file ${BUILD_NUMBER}"
-                        #git merge --continue
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-                        #git push https://github.com/arifislam007/spring-bot-jenkins-k8s.git HEAD:testing
-                        #git push origin staging:staging                # Push your changes to remote 'staging'
-                    '''
-                }
-            }
-        }
-
+			environment {
+				GITHUB_TOKEN = "hp_qVZfWeEzFcsJiLWTuLGy4ecoSXrGiu2wB4Pz"
+				GIT_USER_NAME = "arifislam007"
+				GIT_REPO_NAME = "spring-bot-jenkins-k8s.git"
+			}
+			steps {
+				withCredentials([gitUsernamePassword(credentialsId: 'githubaccess', gitToolName: 'Default')]) {
+					sh '''
+						git config --global user.email "islam.arif87@gmail.com"
+						git config --global user.name "arifislam007"
+						git add .
+						git commit -m "update deployment file ${BUILD_NUMBER}"
+						git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+					'''
+				}
+			}
+		}
 		
     }
 	
