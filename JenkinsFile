@@ -29,7 +29,7 @@ pipeline {
         }
 		stage("Push to Git Repository") {
 			environment {
-				GITHUB_TOKEN = "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"
+				GITHUB_TOKEN = "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"
 				GIT_USER_NAME = "arifislam007"
 				GIT_REPO_NAME = "spring-bot-jenkins-k8s.git"
 			}
@@ -40,7 +40,7 @@ pipeline {
 					git config --global user.name "arifislam007"
 					git add deployment.yml
 					git commit -m "deployment file updated"
-					git push origin staging:staging
+					git push origin main
 				'''
 				
 			}
