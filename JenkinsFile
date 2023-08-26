@@ -31,7 +31,7 @@ pipeline {
 			environment {
 				GITHUB_TOKEN = "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"
 				GIT_USER_NAME = "arifislam007"
-				GIT_REPO_NAME = "spring-bot-jenkins-k8s"
+				GIT_REPO_NAME = "spring-bot-jenkins-k8s.git"
 			}
 			steps {
 				
