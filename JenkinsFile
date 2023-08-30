@@ -1,23 +1,45 @@
 pipeline {
-  agent any
-  stages {
-    stage('Checkout Scm') {
-      steps {
-        git(url: 'https://github.com/arifislam007/spring-bot-jenkins-k8s.git', credentialsId: 'gitTokenAccess')
-      }
+    agent any
+
+    environment {
+        GIT_TOKEN = credentials('gitTokenAccess')
     }
 
-    stage('Shell script 0') {
-      steps {
-        sh 'sed -i \'s/spring-bot:base/spring-bot:${BUILD_NUMBER}/\' ./deployment.yml'
-      }
-    }
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Checkout the repository
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: '*/main']],
+                              userRemoteConfigs: [[url: 'https://github.com/arifislam007/spring-bot-jenkins-k8s.git']],
+                              extensions: [[$class: 'CloneOption', depth: 1]]
+                            ])
+                }
+            }
+        }
 
-  }
-  post {
-    always {
-      echo 'No converter for Publisher: hudson.plugins.git.GitPublisher'
-    }
+        stage('Make Changes') {
+            steps {
+                sh '''
+				echo ${BUILD_NUMBER}
+				sed -i "s/spring-bot:base/spring-bot:${BUILD_NUMBER}/g" ./deployment.yml
+				'''
+            }
+        }
 
-  }
+        stage('Push Changes to testing') {
+            steps {
+                script {
+                    // Push changes to the 'testing' branch
+                    sh "git config user.name 'arifislam007'"
+                    sh "git config user.email 'islam.arif87@gmail.com'"
+                    sh "git checkout testing"
+                    sh "git add ."
+                    sh "git commit -m 'Jenkins pipeline: Making changes'"
+                    sh "git push origin testing"
+                }
+            }
+        }
+    }
 }
