@@ -28,16 +28,25 @@ pipeline {
             }
         }
 
-        stage('Push Changes to testing') {
+        stage('Publish Changes to testing') {
             steps {
                 script {
-                    // Push changes to the 'testing' branch
-                    sh "git config user.name 'arifislam007'"
-                    sh "git config user.email 'islam.arif87@gmail.com'"
-                    sh "git add ."
-                    sh "git commit -m 'Jenkins pipeline: Making changes'"
-
-                    sh "git push origin testing"
+                    // Configure Git Publisher
+                    def publisher = [$class: 'GitPublisher', 
+                                     configVersioning: [[
+                                         credentialsId: 'gitTokenAccess', 
+                                         repositoryName: 'origin', 
+                                         branches: [[name: 'testing']], 
+                                         notes: '', 
+                                         notesIsHtml: false, 
+                                         forcePush: false, 
+                                         tagToPush: '', 
+                                         targetRepoName: ''
+                                     ]]
+                                   ]
+                    
+                    // Publish using Git Publisher
+                    gitPublish publishers: [publisher]
                 }
             }
         }
