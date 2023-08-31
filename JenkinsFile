@@ -25,8 +25,8 @@ pipeline {
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'gitTokenAccess', gitToolName: 'Default')]) {
 					sh'''
-					git config --global user.name "Jenkins Pipeline"
-					git config --global user.email "jenkins@localhost"
+					git config --global user.name "arifislam007"
+					git config --global user.email "islam.arif87@gmail.com"
 					git push -u origin main
 					'''
                 }
