@@ -26,10 +26,10 @@ pipeline {
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'gitTokenAccess', gitToolName: 'Default')]) {
 			sh'''
-			git config --global user.name "arifislam007"
-			git config --global user.email "islam.arif87@gmail.com"
-			git add .
-			git commit -m "Update deployment file"
+			#git config --global user.name "arifislam007"
+			#git config --global user.email "islam.arif87@gmail.com"
+			#git add .
+			#git commit -m "Update deployment file"
 			git push -u origin main
 			'''
                 }
