@@ -16,7 +16,7 @@ pipeline {
                 sh''' 
 		echo ${BUILD_NUMBER}
 		sed -i "s/spring-bot:base/spring-bot:${BUILD_NUMBER}/g" ./deployment.yml
-                git commit -m 'Update deployment file'
+                #git commit -m 'Update deployment file'
 		'''
             }
         }
