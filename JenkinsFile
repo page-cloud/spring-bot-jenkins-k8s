@@ -29,7 +29,7 @@ pipeline {
 			git add .
 			git commit -m "Update deployment file"
 			git checkout main
-			git marge base
+			git merge base
 			git push -u origin main
 			'''
                 }
