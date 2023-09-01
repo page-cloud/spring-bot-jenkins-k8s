@@ -5,7 +5,7 @@ pipeline {
             steps {
                 git(
                     url: "https://github.com/arifislam007/spring-bot-jenkins-k8s.git",
-                    branch: "main",
+                    branch: "base",
                     changelog: true,
                     poll: true
                 )
@@ -29,7 +29,7 @@ pipeline {
 			git add .
 			git commit -m "Update deployment file"
 			git checkout main
-			git marge master
+			git marge base
 			git push -u origin main
 			'''
                 }
