@@ -15,10 +15,8 @@ pipeline {
             steps {
                 sh''' 
 		echo ${BUILD_NUMBER}
-		touch testfile1
-                git add testfile
-                git commit -m 'Add testfile from Jenkins Pipeline'
 		sed -i "s/spring-bot:base/spring-bot:${BUILD_NUMBER}/g" ./deployment.yml
+                git commit -m 'Update deployment file'
 		'''
             }
         }
@@ -26,10 +24,10 @@ pipeline {
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'gitTokenAccess', gitToolName: 'Default')]) {
 			sh'''
-			#git config --global user.name "arifislam007"
-			#git config --global user.email "islam.arif87@gmail.com"
-			#git add .
-			#git commit -m "Update deployment file"
+			git config --global user.name "arifislam007"
+			git config --global user.email "islam.arif87@gmail.com"
+			git add .
+			git commit -m "Update deployment file"
 			git push -u origin main
 			'''
                 }
