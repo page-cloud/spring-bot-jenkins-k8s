@@ -30,7 +30,8 @@ pipeline {
 			git commit -m "Update deployment file"
 			git checkout main
 			cat deployment.yml
-			git merge base
+			#git merge base
+			git merge -s ours base
 			git push -u origin main
 			'''
                 }
