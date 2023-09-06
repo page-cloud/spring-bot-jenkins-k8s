@@ -1,44 +1,31 @@
 pipeline {
     agent any
+
     stages {
-        stage("Clone Git Repository") {
+        stage('Check SCM') {
             steps {
-                git(
-                    url: "https://github.com/arifislam007/spring-bot-jenkins-k8s.git",
-                    branch: "base",
-                    changelog: true,
-                    poll: true
-                )
+                git branch: 'main', url: 'https://github.com/page-cloud/spring-bot-jenkins-k8s.git'
             }
         }
-        stage("Create artifacts or make changes") {
+        stage('Build') {
             steps {
-                sh''' 
-		echo ${BUILD_NUMBER}
-		sed -i "s/spring-bot:base/spring-bot:${BUILD_NUMBER}/g" ./deployment.yml
-                #git commit -m 'Update deployment file'
-		'''
+                sh 'mvn clean install'
             }
         }
-        stage("Push to Git Repository") {
+		stage('Docker Image Build') {
             steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'gitTokenAccess', gitToolName: 'Default')]) {
-			sh'''
-			git config --global user.name "arifislam007"
-			git config --global user.email "islam.arif87@gmail.com"
-			git add .
-			git commit -m "Update deployment file"
-			git checkout main
-			git merge base
-			git push -u origin main
-			'''
-                }
+                sh 'docker build -t spring-java:${BUILD_NUMBER} .'
             }
         }
-    }
-    post {
-        always {
-            deleteDir()
+		stage('Docker Push  to Docker Hub') {
+			    environment {
+					DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+					}
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				sh 'docker tag spring-java:${BUILD_NUMBER} arifislam/spring-java:${BUILD_NUMBER}'
+				sh 'docker push arifislam/spring-java:${BUILD_NUMBER}'
+            }
         }
     }
 }
