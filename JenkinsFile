@@ -12,19 +12,19 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-		stage('Docker Image Build') {
+	stage('Docker Image Build') {
             steps {
                 sh 'docker build -t spring-java:${BUILD_NUMBER} .'
             }
         }
-		stage('Docker Push  to Docker Hub') {
-			    environment {
-					DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-					}
+	stage('Docker Push  to Docker Hub') {
+	    environment {
+			DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+			}
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-				sh 'docker tag spring-java:${BUILD_NUMBER} arifislam/spring-java:${BUILD_NUMBER}'
-				sh 'docker push arifislam/spring-java:${BUILD_NUMBER}'
+		sh 'docker tag spring-java:${BUILD_NUMBER} arifislam/spring-java:${BUILD_NUMBER}'
+		sh 'docker push arifislam/spring-java:${BUILD_NUMBER}'
             }
         }
     }
