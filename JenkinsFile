@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('* * * * *') // Trigger the build every minute
-    }
-
     stages {
         stage('Check SCM') {
             steps {
