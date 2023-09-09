@@ -30,7 +30,7 @@ pipeline {
         stage('Remote SSH') {
             agent any
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'dockerkey', keyFileVariable: 'identity')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'dockerkey', keyFileVariable: 'identity', usernameVariable: 'user')]) {
                     script {
                         def remote = [
                             name: 'test',
