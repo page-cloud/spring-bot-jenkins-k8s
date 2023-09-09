@@ -14,7 +14,7 @@ public class StartApplication {
     public String index(final Model model) {
         model.addAttribute("title", "Yes, CICD for Java Application has been deployed using docker");
         model.addAttribute("msg", "This application is deployed on docker with CICD Git>Jenkins>docker hub>docker by Md Areful Islam");
-        model.addAttribute("msg", "This is another line for Automating Build and deploye with CiCD");
+        model.addAttribute("msg1", "This is another line for Automating Build and deploye with CiCD");
         return "index";
     }
 
