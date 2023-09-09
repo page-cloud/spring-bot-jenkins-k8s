@@ -30,13 +30,12 @@ pipeline {
         stage('Remote SSH') {
             agent any
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'dockerkey', keyFileVariable: 'SSH_KEY')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'dockerkey', keyFileVariable: 'identity')]) {
                     script {
                         def remote = [
                             name: 'test',
                             host: '10.200.205.187',
-                            user: 'dockeradmin',
-                            keyFile: SSH_KEY
+                            user: 'dockeradmin'
                         ]
                         remote.allowAnyHosts = true
         
