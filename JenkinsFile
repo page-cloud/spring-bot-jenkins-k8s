@@ -34,8 +34,8 @@ pipeline {
                     def remote = [
                         name: 'test',
                         host: '10.200.205.187',
-                        user: 'root',
-                        password: 'admin@123',
+                        user: 'dockeradmin',
+                        password: 'docker@dmin',
                         allowAnyHosts: true
                     ]
 
