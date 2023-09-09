@@ -22,9 +22,9 @@ pipeline {
                 DOCKERHUB_CREDENTIALS = credentials('dockerhub')
             }
             steps {
-                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                sh "docker tag spring-java:\${BUILD_NUMBER} arifislam/spring-java:\${BUILD_NUMBER}"
-                sh "docker push arifislam/spring-java:\${BUILD_NUMBER}"
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "docker tag spring-java:${BUILD_NUMBER} arifislam/spring-java:${BUILD_NUMBER}"
+                sh "docker push arifislam/spring-java:${BUILD_NUMBER}"
             }
         }
         stage('Remote SSH') {
@@ -39,8 +39,9 @@ pipeline {
                         allowAnyHosts: true
                     ]
 
-                    // Execute an SSH command on the remote server
-                    sshCommand remote: remote, command: 'ip add'
+                    // Execute SSH commands on the remote server
+                    sshCommand remote: remote, command: "docker rm -f java-spring"
+                    sshCommand remote: remote, command: "docker run -itd --name java-spring -p 7054:8080 arifislam/spring-java:${BUILD_NUMBER}"
                 }
             }
         }
